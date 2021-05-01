@@ -2,7 +2,7 @@
 #include "reverse_iterator.h"
 #include <stdexcept> // out_of_range
 
-// Shitty take on c++ Array
+// remade c++ Array
 template<class T, size_t N>
 class array {
 		T arr[N];
