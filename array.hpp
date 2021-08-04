@@ -1,8 +1,11 @@
 #ifndef _ARRAY_
 #define _ARRAY_
+
 #include <cstddef>  //size_t
-#include "reverse_iterator.h"
+#include "reverse_iterator.hpp"
+#include <initializer_list>
 #include <stdexcept> // out_of_range
+#include <cassert> // assert
 
 // remade c++ Array
 template<class T, size_t N>
@@ -12,8 +15,11 @@ class array {
 		array(T Carr[]) {
 			for(int i = 0; i < N; i++) {arr[i] = Carr[i];}
 		}
+		array(std::initializer_list<T> init_arr) {
+			assert(init_arr.size() <= N);
+			std::copy(init_arr.begin(), init_arr.end(), begin());
+		}
 		array() {}
-		// ~array() {delete arr;}
 		// array() {
 		// 	for(int i = 0; i < N; i++) {arr[i] = 0;}
 		// }
