@@ -1,3 +1,5 @@
+#ifndef _ARRAY_
+#define _ARRAY_
 #include <cstddef>  //size_t
 #include "reverse_iterator.h"
 #include <stdexcept> // out_of_range
@@ -91,3 +93,4 @@ T sum(array<T, N> arr) {
 	}
 	return n;
 }
+#endif
