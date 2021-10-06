@@ -22,12 +22,22 @@ impl<T: std::marker::Copy> Node<T> {
             Some(ref mut next) => {next.push(n);},
         }
     }
-    // FIXME add boundary for size 1 node
-    // FIXME add popping
-    pub fn pop(&mut self) -> T {
-        match self.next {
-            None => self.val,
-            Some(ref mut next) => next.pop(),
+    pub fn pop(&mut self) -> Option<T> {
+        if self.next.is_none() {
+            None
+        } else {
+            let mut last_node_ptr = &mut **self.next.as_mut().unwrap() as *mut Node<T>;
+            let mut last_node_ptr_before = last_node_ptr;
+
+            unsafe {
+                while (*last_node_ptr).next.is_some() {
+                    last_node_ptr_before = last_node_ptr;
+                    last_node_ptr = last_node_ptr as *mut Node<T>;
+                }
+                let res = (*last_node_ptr).val;
+                (*last_node_ptr_before).next = None;
+                Some(res)
+            }
         }
     }
     pub fn first(& self) -> T {self.val}
